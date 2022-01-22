@@ -97,10 +97,16 @@ def create_document(content):
 
 
 def create(content, name):
-    a = open(f'{name}.drawio', 'w')
+    if not os.path.exists('xml'):
+        os.mkdir('xml')
+
+    if not os.path.exists('img'):
+        os.mkdir('img')
+
+    a = open(f'xml/{name}.drawio', 'w')
     a.write(content)
     a.close()
-    os.system(f'/Applications/draw.io.app/Contents/MacOS/draw.io {name}.drawio -t -x -o {name}.png')
+    os.system(f'/Applications/draw.io.app/Contents/MacOS/draw.io xml/{name}.drawio -t -x -o img/{name}.png')
 
 
 # Press the green button in the gutter to run the script.
