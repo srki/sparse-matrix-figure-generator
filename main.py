@@ -1,4 +1,5 @@
 import os
+import random
 
 ORANGE_LIGHT = '#FFE6CC'
 ORANGE_DARK = '#D79B00'
@@ -106,11 +107,21 @@ def create(content, name):
     a = open(f'xml/{name}.drawio', 'w')
     a.write(content)
     a.close()
-    os.system(f'/Applications/draw.io.app/Contents/MacOS/draw.io xml/{name}.drawio -t -x -o img/{name}.png')
+    # os.system(f'/Applications/draw.io.app/Contents/MacOS/draw.io xml/{name}.drawio -t -x -o img/{name}.png')
+    os.system(f'/snap/bin/drawio xml/{name}.drawio -t -x -o img/{name}.png')
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
+def random_matrices(n, m, nnz):
+    matrix = []
+    for i in range(0, n):
+        matrix.append([0 for j in range(0, m)])
+
+    for i in range(0, nnz):
+        matrix[random.randrange(0, n)][random.randrange(0, m)] = 1
+
+    return matrix
+
+def gen_mult():
     A = [[0, 0, 0, 0, 0, 0, 0, 6],
          [0, 0, 0, 0, 4, 0, 0, 0],
          [0, 0, 0, 0, 0, 0, 0, 0],
@@ -141,6 +152,10 @@ if __name__ == '__main__':
          [0, 0, 0, 1, 0, 0, 0, 1],
          ]
 
+    A = random_matrices(8, 10, 15)
+    B = random_matrices(10, 8, 15)
+    M = random_matrices(8, 8, 15)
+
     C_tmp = []
     for i in range(0, len(A)):
         C_tmp.append([])
@@ -166,6 +181,7 @@ if __name__ == '__main__':
     create(create_document(add_matrix(0, 0, C, GREEN_LIGHT, GREEN_DARK, show_zeros=False, show_values=False)), 'C')
     create(create_document(add_matrix(0, 0, M, RED_LIGHT, RED_DARK, show_zeros=False, show_values=False)), 'M_circle')
 
+def main():
     graph = [[0, 1, 0, 1, 0, 0, 0],
              [0, 0, 0, 0, 1, 0, 1],
              [0, 0, 0, 0, 0, 1, 0],
@@ -182,62 +198,65 @@ if __name__ == '__main__':
               [0, 0, 1, 0, 1, 0, 0],
               [0, 1, 0, 0, 0, 0, 0]]
 
-    create(create_document(add_matrix(0, 0, graph, RED_LIGHT, RED_DARK, show_zeros=False, show_values=False, show_rc=True)), 'graph')
-    create(create_document(add_matrix(0, 0, graphT, RED_LIGHT, RED_DARK, show_zeros=False, show_values=False, show_rc=True)), 'graphT')
+    create(create_document(add_matrix(0, 0, graph, GRAY_LIGHT, GRAY_DARK, show_zeros=False, show_values=True, show_rc=True)), 'graph')
+    create(create_document(add_matrix(0, 0, graphT, GRAY_LIGHT, GRAY_DARK, show_zeros=False, show_values=True, show_rc=True)), 'graphT')
 
     unvisited1 = [[1],
-                 [1],
-                 [1],
-                 [1],
-                 [1],
-                 [1],
-                 [1]]
+                  [1],
+                  [1],
+                  [1],
+                  [1],
+                  [1],
+                  [1]]
 
     unvisited2 = [[0],
-                 [1],
-                 [1],
-                 [1],
-                 [1],
-                 [1],
-                 [1]]
+                  [1],
+                  [1],
+                  [1],
+                  [1],
+                  [1],
+                  [1]]
 
     unvisited3 = [[0],
-                 [0],
-                 [1],
-                 [0],
-                 [1],
-                 [1],
-                 [1]]
+                  [0],
+                  [1],
+                  [0],
+                  [1],
+                  [1],
+                  [1]]
 
-    create(create_document(add_matrix(0, 0, unvisited1, GRAY_LIGHT, GRAY_DARK, show_zeros=False, show_values=False, show_rc=False)), 'unvisited1')
-    create(create_document(add_matrix(0, 0, unvisited2, GRAY_LIGHT, GRAY_DARK, show_zeros=False, show_values=False, show_rc=False)), 'unvisited2')
-    create(create_document(add_matrix(0, 0, unvisited3, GRAY_LIGHT, GRAY_DARK, show_zeros=False, show_values=False, show_rc=False)), 'unvisited3')
+    create(create_document(add_matrix(0, 0, unvisited1, GRAY_LIGHT, GRAY_DARK, show_zeros=False, show_values=True, show_rc=False)), 'unvisited1')
+    create(create_document(add_matrix(0, 0, unvisited2, GRAY_LIGHT, GRAY_DARK, show_zeros=False, show_values=True, show_rc=False)), 'unvisited2')
+    create(create_document(add_matrix(0, 0, unvisited3, GRAY_LIGHT, GRAY_DARK, show_zeros=False, show_values=True, show_rc=False)), 'unvisited3')
 
     wavefront1 = [[1],
-                 [0],
-                 [0],
-                 [0],
-                 [0],
-                 [0],
-                 [0]]
+                  [0],
+                  [0],
+                  [0],
+                  [0],
+                  [0],
+                  [0]]
 
     wavefront2 = [[0],
-                 [1],
-                 [0],
-                 [1],
-                 [0],
-                 [0],
-                 [0]]
-    
+                  [1],
+                  [0],
+                  [1],
+                  [0],
+                  [0],
+                  [0]]
+
     wavefront3 = [[0],
-                 [0],
-                 [1],
-                 [0],
-                 [1],
-                 [0],
-                 [1]]
+                  [0],
+                  [1],
+                  [0],
+                  [1],
+                  [0],
+                  [1]]
 
     create(create_document(add_matrix(0, 0, wavefront1, GRAY_LIGHT, GRAY_DARK, show_zeros=False, show_values=False, show_rc=False)), 'wavefront1')
     create(create_document(add_matrix(0, 0, wavefront2, GRAY_LIGHT, GRAY_DARK, show_zeros=False, show_values=False, show_rc=False)), 'wavefront2')
     create(create_document(add_matrix(0, 0, wavefront3, GRAY_LIGHT, GRAY_DARK, show_zeros=False, show_values=False, show_rc=False)), 'wavefront3')
 
+
+if __name__ == '__main__':
+    main()
