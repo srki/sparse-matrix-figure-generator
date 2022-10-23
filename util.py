@@ -15,11 +15,25 @@ GRAY_LIGHT = '#F5F5F5'
 GRAY_DARK = '#666666'
 
 
+def subscript(text):
+    return f'&lt;sub&gt;{text}&lt;/sub&gt;'
+
+
 def add_text_box(x, y, value, font_color='#0000000'):
     return f'<mxCell value="{value}" style="text;html=1;strokeColor=none;fillColor=none;align=center;' \
            f'verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=32;fontStyle=1;fontColor={font_color};" ' \
            f'vertex="1" parent="1">\n' \
            f'<mxGeometry x="{x}" y="{y}" width="40" height="40" as="geometry" />\n' \
+           '</mxCell>\n'
+
+
+def add_rectangle_text(x, y, w, h, value, fill_color, stroke_color, stroke_width, font_size=16, font_color='#0000000'):
+    return f'<mxCell value="{value}" style="text;html=1;' \
+           f'strokeColor={stroke_color};strokeWidth={stroke_width};fillColor={fill_color};' \
+           f'align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;' \
+           f'fontSize={font_size};fontStyle=1;fontColor={font_color};" ' \
+           f'vertex="1" parent="1">\n' \
+           f'<mxGeometry x="{x}" y="{y}" width="{w}" height="{h}" as="geometry" />\n' \
            '</mxCell>\n'
 
 
@@ -108,7 +122,7 @@ def write(name, content):
     a.write(content)
     a.close()
     # os.system(f'/Applications/draw.io.app/Contents/MacOS/draw.io xml/{name}.drawio -t -x -o img/{name}.png')
-    # os.system(f'/snap/bin/drawio xml/{name}.drawio -t -x -o img/{name}.png')
+    os.system(f'/snap/bin/drawio xml/{name}.drawio -t -x -o img/{name}.png')
 
 
 def random_matrices(n, m, nnz, low_value=1, hi_value=1, seed=0):
