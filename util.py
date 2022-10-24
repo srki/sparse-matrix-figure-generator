@@ -44,8 +44,8 @@ def add_dot(x, y):
            '</mxCell>\n'
 
 
-def add_circle(x, y):
-    return '<mxCell value="" style="ellipse;whiteSpace=wrap;html=1;fontSize=32;' \
+def add_circle(x, y, value=''):
+    return f'<mxCell value="{value}" style="ellipse;whiteSpace=wrap;html=1;fontSize=18;' \
            'strokeColor=#b85450;fillColor=none;strokeWidth=5;" vertex="1" parent="1">\n' \
            f'<mxGeometry x="{x}" y="{y}" width="34" height="34" as="geometry" />\n' \
            '</mxCell>'
@@ -123,6 +123,10 @@ def write(name, content):
     a.close()
     # os.system(f'/Applications/draw.io.app/Contents/MacOS/draw.io xml/{name}.drawio -t -x -o img/{name}.png')
     os.system(f'/snap/bin/drawio xml/{name}.drawio -t -x -o img/{name}.png')
+
+
+def write_document(name, content):
+    write(name, create_document(content))
 
 
 def random_matrices(n, m, nnz, low_value=1, hi_value=1, seed=0):
